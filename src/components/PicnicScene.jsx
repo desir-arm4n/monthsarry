@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import TabletProp from './TabletProp';
+import MusicPlayer from './MusicPlayer';
 
 let currentSeed = 12345;
 function seededRandom() {
@@ -15,7 +16,7 @@ const Tulip = ({ cx, cy, scale, rotate, colorMain, colorSide, bloomed }) => {
   const bloomCy = bloomed ? cy - 5 : cy;
 
   return (
-    <g 
+    <g
       transform={`translate(${bloomCx}, ${bloomCy}) scale(${bloomScale}) rotate(${bloomRotate})`}
       style={{ transition: 'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)' }}
     >
@@ -69,12 +70,12 @@ const TulipBouquet = () => {
   ];
 
   return (
-    <svg 
-      viewBox="0 0 100 160" 
-      style={{ 
-        width: '150px', 
-        height: '240px', 
-        filter: 'drop-shadow(3px 8px 6px rgba(0,0,0,0.3))', 
+    <svg
+      viewBox="0 0 100 160"
+      style={{
+        width: '150px',
+        height: '240px',
+        filter: 'drop-shadow(3px 8px 6px rgba(0,0,0,0.3))',
         transform: 'rotate(-25deg)',
         cursor: 'pointer',
         pointerEvents: 'auto',
@@ -86,10 +87,10 @@ const TulipBouquet = () => {
       }}
     >
       {leaves.map((l, i) => (
-        <path 
-          key={i} 
-          d={l.d} 
-          fill={l.fill} 
+        <path
+          key={i}
+          d={l.d}
+          fill={l.fill}
           style={{
             transform: bloomed ? `rotate(${l.transformOffset}deg)` : 'rotate(0deg)',
             transformOrigin: '50px 100px',
@@ -98,16 +99,16 @@ const TulipBouquet = () => {
         />
       ))}
       <path d="M 30 50 L 40 90 M 70 50 L 60 90 M 50 40 L 50 90 M 20 60 L 45 90 M 80 60 L 55 90" stroke="#4c9e24" strokeWidth="2.5" />
-      <Tulip cx={35} cy={30} scale={0.65} rotate={-10} colorMain="#e5383b" colorSide="#ba1826" bloomed={bloomed} /> 
-      <Tulip cx={50} cy={25} scale={0.7} rotate={5} colorMain="#ffffff" colorSide="#f0f0f0" bloomed={bloomed} /> 
-      <Tulip cx={65} cy={30} scale={0.65} rotate={15} colorMain="#ff6685" colorSide="#ff335e" bloomed={bloomed} /> 
-      <Tulip cx={22} cy={48} scale={0.7} rotate={-25} colorMain="#ffc2d1" colorSide="#ff99b0" bloomed={bloomed} /> 
-      <Tulip cx={35} cy={45} scale={0.65} rotate={-15} colorMain="#ffffff" colorSide="#f0f0f0" bloomed={bloomed} /> 
-      <Tulip cx={50} cy={42} scale={0.75} rotate={0} colorMain="#e5383b" colorSide="#ba1826" bloomed={bloomed} /> 
-      <Tulip cx={65} cy={45} scale={0.7} rotate={15} colorMain="#ffc2d1" colorSide="#ff99b0" bloomed={bloomed} /> 
-      <Tulip cx={78} cy={50} scale={0.7} rotate={25} colorMain="#ffffff" colorSide="#f0f0f0" bloomed={bloomed} /> 
-      <Tulip cx={40} cy={60} scale={0.75} rotate={-10} colorMain="#ff6685" colorSide="#ff335e" bloomed={bloomed} /> 
-      <Tulip cx={60} cy={60} scale={0.75} rotate={10} colorMain="#e5383b" colorSide="#ba1826" bloomed={bloomed} /> 
+      <Tulip cx={35} cy={30} scale={0.65} rotate={-10} colorMain="#e5383b" colorSide="#ba1826" bloomed={bloomed} />
+      <Tulip cx={50} cy={25} scale={0.7} rotate={5} colorMain="#ffffff" colorSide="#f0f0f0" bloomed={bloomed} />
+      <Tulip cx={65} cy={30} scale={0.65} rotate={15} colorMain="#ff6685" colorSide="#ff335e" bloomed={bloomed} />
+      <Tulip cx={22} cy={48} scale={0.7} rotate={-25} colorMain="#ffc2d1" colorSide="#ff99b0" bloomed={bloomed} />
+      <Tulip cx={35} cy={45} scale={0.65} rotate={-15} colorMain="#ffffff" colorSide="#f0f0f0" bloomed={bloomed} />
+      <Tulip cx={50} cy={42} scale={0.75} rotate={0} colorMain="#e5383b" colorSide="#ba1826" bloomed={bloomed} />
+      <Tulip cx={65} cy={45} scale={0.7} rotate={15} colorMain="#ffc2d1" colorSide="#ff99b0" bloomed={bloomed} />
+      <Tulip cx={78} cy={50} scale={0.7} rotate={25} colorMain="#ffffff" colorSide="#f0f0f0" bloomed={bloomed} />
+      <Tulip cx={40} cy={60} scale={0.75} rotate={-10} colorMain="#ff6685" colorSide="#ff335e" bloomed={bloomed} />
+      <Tulip cx={60} cy={60} scale={0.75} rotate={10} colorMain="#e5383b" colorSide="#ba1826" bloomed={bloomed} />
       <path d="M 15 80 C 30 88, 70 88, 85 80 L 50 160 Z" fill="#ebb27d" />
       <path d="M 15 80 C 25 83, 35 85, 45 85 L 50 160 Z" fill="#f2c79a" />
     </svg>
@@ -137,7 +138,7 @@ const PondEdge = () => (
   </svg>
 );
 
-export default function PicnicScene({ children }) {
+export default function PicnicScene({ children, autoStart }) {
 
   currentSeed = 12345;
 
@@ -217,7 +218,7 @@ export default function PicnicScene({ children }) {
 
 
 
-    return (
+  return (
     <div className="bg-grass">
 
       {grassPatches.map(patch => (
@@ -366,6 +367,10 @@ export default function PicnicScene({ children }) {
 
         <div style={{ position: 'absolute', top: '10%', right: '5%', zIndex: 1 }}>
           <ChocolateCakeScene />
+        </div>
+
+        <div style={{ position: 'absolute', top: '68%', left: 'calc(30% - 20px)', zIndex: 1, transform: 'rotate(-8deg)' }}>
+          <MusicPlayer autoStart={autoStart} />
         </div>
 
         <div style={{ position: 'absolute', width: '100%', height: '100%', zIndex: 2, pointerEvents: 'none' }}>
